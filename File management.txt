@@ -1,0 +1,72 @@
+hrms-admin-system/
+│
+├── backend/
+│   │
+│   ├── app/
+│   │   │
+│   │   ├── main.py
+│   │   │
+│   │   ├── core/
+│   │   │   ├── database.py
+│   │   │   └── seed_data.py
+│   │   │
+│   │   ├── models/
+│   │   │   ├── employee.py
+│   │   │   └── attendance.py
+│   │   │
+│   │   ├── schemas/
+│   │   │   ├── employee.py
+│   │   │   └── attendance.py
+│   │   │
+│   │   ├── routes/
+│   │   │   ├── employees.py
+│   │   │   ├── attendance.py
+│   │   │   ├── reports.py
+│   │   │   └── dashboard.py
+│   │   │
+│   │   └── __init__.py
+│   │
+│   ├── requirements.txt
+│   ├── README.md
+│   └── .env
+│
+├── frontend/
+│   │
+│   ├── src/
+│   │   │
+│   │   ├── api/
+│   │   │   └── api.js
+│   │   │
+│   │   ├── components/
+│   │   │   ├── EmployeeForm.jsx
+│   │   │   ├── EmployeeTable.jsx
+│   │   │   ├── AttendanceForm.jsx
+│   │   │   ├── AttendanceTable.jsx
+│   │   │   ├── AttendanceCalendar.jsx
+│   │   │   ├── AttendanceSummaryChart.jsx
+│   │   │   ├── AttendanceTrendChart.jsx
+│   │   │   ├── DepartmentAttendanceChart.jsx
+│   │   │   ├── StatCard.jsx
+│   │   │   └── Loader.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Employees.jsx
+│   │   │   ├── Attendance.jsx
+│   │   │   ├── Reports.jsx
+│   │   │   └── Settings.jsx
+│   │   │
+│   │   ├── layout/
+│   │   │   ├── Sidebar.jsx
+│   │   │   └── Topbar.jsx
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── package.json
+│   ├── README.md
+│   └── .env
+│
+├── README.md
+└── .gitignore

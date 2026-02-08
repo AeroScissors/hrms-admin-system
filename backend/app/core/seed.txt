@@ -1,0 +1,72 @@
+# backend/app/core/seed_data.py
+
+from datetime import date, timedelta
+import random
+
+from sqlalchemy.orm import Session
+
+from app.models.employee import Employee
+from app.models.attendance import Attendance
+
+
+def seed_employees(db: Session):
+    """Seed employees if none exist"""
+    if db.query(Employee).count() > 0:
+        return
+
+    employees = [
+        {"employee_id": "EMP001", "full_name": "Amit Sharma", "email": "amit@company.com", "department": "Engineering"},
+        {"employee_id": "EMP002", "full_name": "Neha Verma", "email": "neha@company.com", "department": "HR"},
+        {"employee_id": "EMP003", "full_name": "Rahul Mehta", "email": "rahul@company.com", "department": "Finance"},
+        {"employee_id": "EMP004", "full_name": "Priya Singh", "email": "priya@company.com", "department": "Engineering"},
+        {"employee_id": "EMP005", "full_name": "Karan Patel", "email": "karan@company.com", "department": "Sales"},
+        {"employee_id": "EMP006", "full_name": "Sneha Iyer", "email": "sneha@company.com", "department": "Marketing"},
+        {"employee_id": "EMP007", "full_name": "Arjun Rao", "email": "arjun@company.com", "department": "Engineering"},
+        {"employee_id": "EMP008", "full_name": "Pooja Nair", "email": "pooja@company.com", "department": "HR"},
+        {"employee_id": "EMP009", "full_name": "Vikram Joshi", "email": "vikram@company.com", "department": "Finance"},
+        {"employee_id": "EMP010", "full_name": "Ananya Gupta", "email": "ananya@company.com", "department": "Operations"},
+    ]
+
+    for emp in employees:
+        db.add(Employee(**emp))
+
+    db.commit()
+
+
+def seed_attendance(db: Session, days: int = 30):
+    """Seed attendance for last N days"""
+    employees = db.query(Employee).all()
+    if not employees:
+        return
+
+    today = date.today()
+
+    for emp in employees:
+        for i in range(days):
+            attendance_date = today - timedelta(days=i)
+
+            # Skip if already exists (safe re-run)
+            exists = db.query(Attendance).filter(
+                Attendance.employee_id == emp.employee_id,
+                Attendance.date == attendance_date
+            ).first()
+
+            if exists:
+                continue
+
+            status = "Present" if random.random() < 0.78 else "Absent"
+
+            db.add(
+                Attendance(
+                    employee_id=emp.employee_id,
+                    date=attendance_date,
+                    status=status
+                )
+            )
+
+    db.commit()
+
+
+def run_seed(db: Session):
+    seed_employees(db)
+    seed_attendance(db)
