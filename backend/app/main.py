@@ -21,14 +21,14 @@ app = FastAPI(
 )
 
 # ----------------------------
-# CORS Middleware
+# CORS Middleware (FIXED)
 # ----------------------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        # frontend live URL will be added later
+        "https://hrms-admin-system.vercel.app",  # 👈 FRONTEND LIVE URL
     ],
     allow_credentials=True,
     allow_methods=["*"],
