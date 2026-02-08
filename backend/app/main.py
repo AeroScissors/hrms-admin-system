@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
 from app.core.database import Base, engine, SessionLocal
@@ -10,6 +11,9 @@ from app.core.seed_data import run_seed
 # ----------------------------
 from app.routes import employees, attendance, reports, dashboard
 
+# ----------------------------
+# FastAPI App
+# ----------------------------
 app = FastAPI(
     title="HRMS Backend",
     description="HRMS Backend with Employees, Attendance, Reports, and Dashboard",
@@ -17,13 +21,14 @@ app = FastAPI(
 )
 
 # ----------------------------
-# CORS Middleware (IMPORTANT)
+# CORS Middleware
 # ----------------------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        # frontend live URL will be added later
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -36,7 +41,7 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 # ----------------------------
-# Seed data on startup (DEV only)
+# Seed Data on Startup (DEV only)
 # ----------------------------
 @app.on_event("startup")
 def seed_database():
@@ -52,11 +57,11 @@ def seed_database():
 app.include_router(employees.router)
 app.include_router(attendance.router)
 app.include_router(reports.router)
-app.include_router(dashboard.router)   # 👈 THIS IS THE FIX
+app.include_router(dashboard.router)
 
 # ----------------------------
-# Root Health Check
+# Root → Redirect to Swagger
 # ----------------------------
-@app.get("/")
+@app.get("/", include_in_schema=False)
 def root():
-    return {"message": "HRMS Backend is running"}
+    return RedirectResponse(url="/docs")
