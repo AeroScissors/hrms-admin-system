@@ -5,7 +5,9 @@ import axios from "axios";
 ========================= */
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:8000",
+  baseURL:
+    import.meta.env.VITE_API_BASE_URL ||
+    "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -35,7 +37,6 @@ const normalizeError = (error) => {
    EMPLOYEES
 ========================= */
 
-// Get all employees
 export const getEmployees = async () => {
   try {
     const res = await api.get("/employees");
@@ -45,7 +46,6 @@ export const getEmployees = async () => {
   }
 };
 
-// Add employee
 export const addEmployee = async (employeeData) => {
   try {
     const res = await api.post("/employees", employeeData);
@@ -55,7 +55,6 @@ export const addEmployee = async (employeeData) => {
   }
 };
 
-// Delete employee
 export const deleteEmployee = async (employeeId) => {
   try {
     const res = await api.delete(`/employees/${employeeId}`);
@@ -69,7 +68,6 @@ export const deleteEmployee = async (employeeId) => {
    ATTENDANCE
 ========================= */
 
-// Mark attendance
 export const markAttendance = async (attendanceData) => {
   try {
     const res = await api.post("/attendance", attendanceData);
@@ -79,7 +77,6 @@ export const markAttendance = async (attendanceData) => {
   }
 };
 
-// Get attendance for an employee
 export const getAttendanceByEmployee = async (
   employeeId,
   startDate,
@@ -99,10 +96,9 @@ export const getAttendanceByEmployee = async (
 };
 
 /* =========================
-   REPORTS (READ-ONLY)
+   REPORTS
 ========================= */
 
-// Employee attendance summary
 export const getEmployeeAttendanceReport = async (
   employeeId,
   startDate,
@@ -124,7 +120,6 @@ export const getEmployeeAttendanceReport = async (
   }
 };
 
-// Monthly attendance report
 export const getMonthlyAttendanceReport = async (
   employeeId,
   startDate,
@@ -146,7 +141,6 @@ export const getMonthlyAttendanceReport = async (
   }
 };
 
-// Organization-wide attendance summary (REPORTS ONLY)
 export const getOrganizationAttendanceSummary = async (
   startDate,
   endDate
@@ -164,7 +158,6 @@ export const getOrganizationAttendanceSummary = async (
   }
 };
 
-// ✅ Department-wise attendance (TODAY)
 export const getAttendanceByDepartment = async () => {
   try {
     const res = await api.get("/reports/attendance/by-department");
@@ -175,10 +168,9 @@ export const getAttendanceByDepartment = async () => {
 };
 
 /* =========================
-   DASHBOARD (ADMIN SNAPSHOT)
+   DASHBOARD
 ========================= */
 
-// Dashboard – Today only
 export const getDashboardToday = async () => {
   try {
     const res = await api.get("/dashboard/today");
@@ -188,7 +180,6 @@ export const getDashboardToday = async () => {
   }
 };
 
-// Dashboard – Last 30 days trend
 export const getDashboardLast30Days = async () => {
   try {
     const res = await api.get("/dashboard/last-30-days");
