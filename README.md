@@ -10,6 +10,34 @@
 
 ---
 
+# 🔗 Live Demo
+
+## Frontend (Vercel):
+👉 [https://hrms-admin-system.vercel.app](https://hrms-admin-system.vercel.app)
+
+## Backend (Render):
+👉 Hosted on Render (Free Tier)
+
+## ⏳ Backend Cold Start Notice
+
+The backend is deployed using Render’s free web service tier.
+
+### What to expect
+- If the application has been inactive for ~15 minutes, Render automatically puts the backend to sleep.
+- The first request after inactivity may take 30–60 seconds.
+- Once active, all subsequent requests respond normally.
+
+This is expected platform behavior, not a performance issue or bug.
+
+## Production Consideration
+In a production environment, this would be addressed by:
+- Deploying on an always-on instance (Render Starter or higher),
+- Or using alternative always-on backend infrastructure.
+
+This setup was intentionally chosen to keep the project fully deployable on free tiers while demonstrating real-world deployment constraints.
+
+---
+
 ## ✨ Features
 
 ### 👤 Employee Management
