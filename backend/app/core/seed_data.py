@@ -103,7 +103,7 @@ def seed_employees(db: Session):
 
 
 # -------------------------------------------------
-# SEED ATTENDANCE (LAST 30 DAYS)
+# SEED ATTENDANCE (LAST 30 DAYS, EXCLUDING TODAY)
 # -------------------------------------------------
 def seed_attendance(db: Session, days: int = 30):
     """
@@ -141,34 +141,18 @@ def seed_attendance(db: Session, days: int = 30):
 
 
 # -------------------------------------------------
-# SEED TODAY (PARTIAL ON PURPOSE)
+# SEED TODAY (ALL EMPLOYEES UNMARKED)
 # -------------------------------------------------
-def seed_today_partial_attendance(db: Session):
+def seed_today_unmarked(db: Session):
     """
-    Only some employees get attendance today.
-    Intentional for dashboard & edge-case testing.
+    Ensure NO employee has attendance marked for today.
+    This simulates start-of-day real-world behavior.
     """
     today = date.today()
-    employees = db.query(Employee).all()
 
     db.query(Attendance).filter(
         Attendance.date == today
     ).delete()
-    db.commit()
-
-    sample_size = int(len(employees) * 0.6)
-    today_employees = random.sample(employees, sample_size)
-
-    for emp in today_employees:
-        status = "Present" if random.random() < 0.8 else "Absent"
-
-        db.add(
-            Attendance(
-                employee_id=emp.employee_id,
-                date=today,
-                status=status,
-            )
-        )
 
     db.commit()
 
@@ -179,4 +163,4 @@ def seed_today_partial_attendance(db: Session):
 def run_seed(db: Session):
     seed_employees(db)
     seed_attendance(db, days=30)
-    seed_today_partial_attendance(db)
+    seed_today_unmarked(db)
