@@ -10,6 +10,13 @@
 
 ---
 
+## 🔗 Live Demo
+
+- **Frontend (Vercel):** https://hrms-admin-system.vercel.app  
+- **Backend (Render):** Hosted on Render (Free Tier)
+
+---
+
 ## ✨ Features
 
 ### 👤 Employee Management
